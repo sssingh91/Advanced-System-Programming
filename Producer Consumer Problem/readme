@@ -1,0 +1,13 @@
+1) Can be run by using makefile by typing make in terminal.
+2) By using 'make' binary file will be created by the name 'location'.
+3) File can be run by using following command line: './location 10'.
+
+
+
+-----------program details------------------------
+
+-> Dynamic 2-D array is made as buffer. And the solution is implemeted using mutexes and condition variables.
+-> lock is made to wait if buffer is full in producer and is signalled by consumer when there is 'buffsize - 1' element in buffer.
+-> lock is made to wait in consumer if buffer is empty and is signalled by producer when there is '1' element in buffer.
+-> when producer is getting terminated, a global variable 'k' value is changed to '1' and consumer also terminates after removing all the items from buffer when k =1.
+-> As consumer terminates it signals consumer if it is in sleep/wait, if consumer is not waiting that signal will be lost.

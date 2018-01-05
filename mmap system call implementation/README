@@ -1,0 +1,35 @@
+1) Can be run by using makefile by typing make in terminal.
+2) By using 'make' binary file will be created by the name 'trans'.
+3) File can be run by using following command line: './trans Input.txt 5', where Input.txt is the input file and 5 is number of threads.
+
+
+
+-----------program details------------------------
+
+-> For every transaction, new child process is created by fork system call.
+
+-> The maximum number of child processes created/running at the same time is limited by either no. of child processes given through terminal or by number of transaction whichever is less.
+
+-> number of philosopher = maximum number of child processes running at the same time(given by terminal).
+
+-> mutexes are initialised with PTHREAD_PROCESS_SHARED attributes.
+
+-> For each transfer, a new child process is created.
+	i.e. number of child processes = number of transfers
+
+-> Number of mutexes = Number of accounts
+
+-> The child processes running concurrently can only continue when it acquires both the locks (associated with credit and debit account).
+
+-> Once both lock/mutex is acquired transfer proceeds and then both locks are released.
+
+-> Every account is given its lock and when a philosopher/child process function executes first the lock having lower numerical value is acquired. This is to avoid circular dependency and deadlock situation.
+Ex- 
+Transfer 1 2 200
+Transfer 2 1 100
+
+In the above case if numerical order of acquiring lock is not followed, thead 1 will acquire lock 1 and at the same time child process 2/philosopher 2 can aquire lock 2 and both the child processes 1 & 2 waits for lock 2 and lock 1 respectively.  	 
+Therefore, in case of following numerical order, always both child processes will try to acquire lock 1 and then lock 2.So, after one child process acquires it will complete the operation and release the resources and then the next child process can execute.
+
+-> Program modification for startvation is not done as the given problem will not lead to startvation because of following reasons:
+	a) Since we are creating limited number of processes and program is not continuously running, its completing after execution and hence all the child processes are termiated.
